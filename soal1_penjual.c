@@ -12,7 +12,7 @@ int main()
 
 	key_t key = 1234;
 	int *value1, *value2, *value3, *value4, *value5, *value6;
-	int shmid = shmget(key, sizeof(int), IPC_CREAT | 0_666);
+	int shmid = shmget(key, sizeof(int), IPC_CREAT | 0666);
 	value1 = shmat(shmid, NULL, 0);	
 	value2 = shmat(shmid, NULL, 0);	
 	value3 = shmat(shmid, NULL, 0);	
@@ -52,10 +52,15 @@ int main()
 		*value3 = j_SPR_3;
 		*value4 = j_SS2_V5;
 		*value5 = j_SPG1_V3;
-		*value6 = MINE;
+		*value6 = j_MINE;
 	}
 
-	shmdt(value1, value2, value3, value4, value5, value6);
+	shmdt(value1);
+	shmdt(value2);
+	shmdt(value3);
+	shmdt(value4);
+	shmdt(value5);
+	shmdt(value6);
 	shmctl(shmid, IPC_RMID, NULL);	
 	return 0;
 }
