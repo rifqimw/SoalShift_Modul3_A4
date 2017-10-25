@@ -7,7 +7,7 @@ pthread_t tid1;
 pthread_t tid2;
 pthread_t tid3;
 int status;
- 
+int i;
 
 void* tulis(void *arg)
 {
@@ -23,10 +23,29 @@ void* tulis(void *arg)
 
 void* sort(void *arg)
 {
-	
+	while(status != 1)
+	{
+	}
+	int temp[];
+	for(int j = 0; j < i-1; j++)
+	{
+	  for(int k = 0; k < i-j-1; k++)
+	  {
+	    if(arr[k] > arr[k+1])
+	    {
+	 	temp[] = arr[k+1];
+	 	arr[k+1] = arr[k];
+	 	arr[k] = temp[];
+	    }
+	  }
+	}
+	status = 2;
 }
 void* faktorial(void *arg)
 {
+	while(status != 2)
+	{
+	}
 	
 }
 int main(void)
