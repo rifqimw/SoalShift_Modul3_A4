@@ -22,7 +22,6 @@ int main(int argc, char** argv[])
 {
 	int i=0;
 	int input[1000];
-	//for(int k=0; k<argc; k++)
 	while(scanf("%d",&input[i])!=EOF)
 	{
 		pthread_create(&(tid[i]), NULL, &faktorial,(void*) input[i]); 
