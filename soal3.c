@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
 
 int stat_k=100, stat_l=100, status=0;
 
@@ -15,21 +16,32 @@ void *menu (void *arg)
 
 void* l_kurang(void *arg)
 {
-		
+	stat_l-=15;
+	sleep(10);		
 }
 
 void *k_kurang(void *arg)
 {
+	stat_k-=10;
+	sleep(20);
 }
 
 void *l_tambah(void *arg)
 {
 	if(status==1)
+	{
+		stat_l += 10;
+	}
+	status=0;
 }
 
 void *k_tambah(void *arg)
 {
 	if(status==2)
+	{
+		stat_k += 10;
+	}
+	status=0;
 }
 
 int main()
@@ -53,4 +65,5 @@ int main()
 			pthread_join(thr5, NULL);
 		}
 	}
+	return 0;
 }
