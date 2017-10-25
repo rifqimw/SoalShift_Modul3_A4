@@ -2,15 +2,20 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-int stat_k=100, stat_l=100, status;
+int stat_k=100, stat_l=100, status=0;
 
 void *menu (void *arg)
 {
+	system("clear");
+	printf("GAME AQUARIUM");
+	printf("\nSilahkan masukkan angka sesuai pilihan dibawah ini : \n");
+	printf("1. Beri makan Lohan\n2. Beri makan Kepiting\n");
+	scanf("%d", &status);
 }
 
 void* l_kurang(void *arg)
 {
-	
+		
 }
 
 void *k_kurang(void *arg)
@@ -19,10 +24,12 @@ void *k_kurang(void *arg)
 
 void *l_tambah(void *arg)
 {
+	if(status==1)
 }
 
 void *k_tambah(void *arg)
 {
+	if(status==2)
 }
 
 int main()
