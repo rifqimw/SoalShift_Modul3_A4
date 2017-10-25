@@ -3,15 +3,10 @@
 #include <pthread.h>
 #include <unistd.h>
 
-int stat_k=100, stat_l=100, status=0;
+int stat_k=100, stat_l=100, status=0, opsi;
 
-void *menu (void *arg)
+void* menu(void *arg)
 {
-	system("clear");
-	printf("GAME AQUARIUM");
-	printf("\nSilahkan masukkan angka sesuai pilihan dibawah ini : \n");
-	printf("1. Beri makan Lohan\n2. Beri makan Kepiting\n");
-	scanf("%d", &status);
 }
 
 void* l_kurang(void *arg)
@@ -28,20 +23,15 @@ void *k_kurang(void *arg)
 
 void *l_tambah(void *arg)
 {
-	if(status==1)
+	while(status==0) {}	
+	if(opsi==1)
 	{
 		stat_l += 10;
 	}
-	status=0;
-}
-
-void *k_tambah(void *arg)
-{
-	if(status==2)
+	if(opsi==2)
 	{
 		stat_k += 10;
 	}
-	status=0;
 }
 
 int main()
@@ -50,8 +40,7 @@ int main()
 
 	pthread_create(&thr1, NULL, &l_kurang, NULL); 	
 	pthread_create(&thr2, NULL, &k_kurang, NULL);
-	pthread_create(&thr3, NULL, &l_tambah, NULL); 	
-	pthread_create(&thr4, NULL, &k_tambah, NULL);
+	pthread_create(&thr3, NULL, &tambah, NULL); 	
 	pthread_create(&thr5, NULL, &menu, NULL); 	 	
 
 	while(1)
