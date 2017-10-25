@@ -30,7 +30,23 @@ void* thr1(void *arg) //giliran pemain1
 void* thr2(void *arg) //giliran pemain2
 {
 	while(status==0) {}
-	printf("Cuma nyoba mutex");
+	int tempat;
+	printf("Pasang ranjau untuk pemain 2, masukkan -1 jika ingin selesai : ");
+	for(int i=0; i<4; i++)
+	{
+		scanf("%d", &tempat);
+		if(tempat==-1) break;
+		board2[tempat] = 1;
+	}
+	printf("\nSilahkan pemain 1 tebak empat ranjau : ");
+	for(int i=0; i<4; i++)
+	{
+		scanf("%d", &tempat);
+		if(board2[tempat]==1) poin1+=1;
+		else poin2+=1;
+	}
+	status = 0;
+	
 }
 
 int main()
@@ -41,6 +57,7 @@ int main()
 	pthread_create(&(tid1), NULL, &thr1, NULL);
 	pthread_create(&(tid2), NULL, &thr2, NULL);
 	
+	while(poin1 !=10 && poin2 !=10) {	
 	pthread_join(tid1, NULL);
-	pthread_join(tid2, NULL);
+	pthread_join(tid2, NULL);}
 }
