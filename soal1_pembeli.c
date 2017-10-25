@@ -12,7 +12,7 @@ int main()
 
 	key_t key = 1234;
 	int *value1, *value2, *value3, *value4, *value5, *value6;
-	int shmid = shmget(key, sizeof(int), IPC_CREAT | 0_666);
+	int shmid = shmget(key, sizeof(int), IPC_CREAT | 0666);
 	value1 = shmat(shmid, NULL, 0);	
 	value2 = shmat(shmid, NULL, 0);	
 	value3 = shmat(shmid, NULL, 0);	
@@ -38,23 +38,29 @@ int main()
 	{
 		printf("Silahkan input senjata yg ingin ditambah dengan format [nama_barang] [jumlah_barang]\n");
 		scanf("%s", &nama);
-		scanf("%d", &tambah);
-		if(strcmp(nama,"MP4A1")==0) j_MP4A1 += tambah;	
-		else if(strcmp(nama,"PM2_V1")==0) j_PM2_V1 += tambah;	
-		else if(strcmp(nama,"SPR_3")==0) j_SPR_3 += tambah;	
-		else if(strcmp(nama,"SS2_V5")==0) j_SS2_V5 += tambah;	
-		else if(strcmp(nama,"SPG1_V3")==0) j_SPG1_V3 += tambah;	
-		else if(strcmp(nama,"MINE")==0) j_MINE += tambah;		
+		scanf("%d", &beli);		
+
+		if(strcmp(nama,"MP4A1")==0 && j_MP4A1>beli) j_MP4A1 -= beli;	
+		else if(strcmp(nama,"PM2_V1")==0 && j_PM2_V1>beli) j_PM2_V1 -= beli;	
+		else if(strcmp(nama,"SPR_3")==0 && j_SPR_3>beli) j_SPR_3 -= beli;	
+		else if(strcmp(nama,"SS2_V5")==0 && j_SS2_V5>beli) j_SS2_V5 -= beli;	
+		else if(strcmp(nama,"SPG1_V3")==0 && j_SPG1_V3>beli) j_SPG1_V3 -= beli;	
+		else if(strcmp(nama,"MINE")==0 && j_MINE>beli) j_MINE -= beli;		
 		
 	} 	*value1 = j_MP4A1;
 		*value2 = j_PM2_V1;
 		*value3 = j_SPR_3;
 		*value4 = j_SS2_V5;
 		*value5 = j_SPG1_V3;
-		*value6 = MINE;
+		*value6 = j_MINE;
 	}
 
-	shmdt(value1, value2, value3, value4, value5, value6);
+	shmdt(value1);
+	shmdt(value2);
+	shmdt(value3);
+	shmdt(value4);
+	shmdt(value5);
+	shmdt(value6);
 	shmctl(shmid, IPC_RMID, NULL);	
 	
 	return 0;
