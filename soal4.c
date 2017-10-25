@@ -8,10 +8,12 @@ pthread_t tid2;
 pthread_t tid3;
 int status;
 int i;
+int arr[6];
 
 void* tulis(void *arg)
 {
 	status = 0;
+	int temp[];
 	do
 	{
 	  scanf("%d%c", &arr[i], &temp);
@@ -46,7 +48,16 @@ void* faktorial(void *arg)
 	while(status != 2)
 	{
 	}
-	
+	unsigned long long faktorial = 1;
+	for (int j = 0; j < i; j++)
+	{
+		for(int k = 1; k<=arr[j]; ++k)
+		{
+			faktorial *= k;
+		}
+	printf("Hasil %d! = %ull", arr[j], faktorial);
+	printf("\n");
+	}
 }
 int main(void)
 {
