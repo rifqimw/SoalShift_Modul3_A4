@@ -1,56 +1,41 @@
 #include<stdio.h>
-#include<string.h>
 #include<pthread.h>
 #include<stdlib.h>
 #include<unistd.h>
-#include<stdlib.h>
 
-pthread_t tid[2];
+pthread_t tid1;
+pthread_t tid2;
+pthread_t tid3;
+int status;
+ 
 
-int length=90;
-void* count(void *arg)
+void* tulis(void *arg)
 {
-	unsigned long i=0;
-	pthread_t id=pthread_self();
-	int iter;
-	if(pthread_equal(id,tid[0]))
+	status = 0;
+	do
 	{
+	  scanf("%d%c", &arr[i], &temp);
+	  i++;
+	} while(temp!='\n');
+	status = 1;
+	return  NULL;
+}
+
+void* sort(void *arg)
+{
 	
-	}
-	else if(pthread_equal(id,tid[1]))
-	{
-		
-	}
-	return NULL;
+}
+void* faktorial(void *arg)
+{
+	
 }
 int main(void)
 {
-	int l=0;
-	int err;
-	int i=0;
-   	int size;
-   	int arr[6];
-   	char temp;
-   	do
-	{
-          scanf("%d%c", &arr[i], &temp);
-          i++;
-        } while(temp!='\n');
-
-	while(l<2)
-	{
-		err=pthread_create(&(tid[0]),NULL,&count,(void*)argument);
-		if(err!=0)
-		{
-		  
-		}
-		else
-		{
-		  
-		}
-		i++;
-	}
-	pthread_join(tid[0],NULL);
-	pthread_join(tid[1],NULL);
+	pthread_create(&(tid1), NULL, &tulis, NULL);
+	pthread_join(tid1, NULL);
+	pthread_create(&(tid2), NULL, &sort, NULL);
+	pthread_join(tid2,NULL);
+	pthread_create(&(tid3), NULL, &faktorial, NULL);
+	pthread_join(tid3, NULL);
 	return 0;
 }
