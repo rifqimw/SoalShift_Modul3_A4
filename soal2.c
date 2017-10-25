@@ -15,15 +15,16 @@ void* thr1(void *arg) //giliran pemain1
 	{
 		scanf("%d", &tempat);
 		if(tempat==-1) break;
-		else if(board1[tempat]==1)
+		else if(board1[tempat]==1 || board1[tempat]==-1)
 		{
 			while(1) {
-			printf("Lubang ini sudah terisi! Silahkan isi lubang lain!");
+			printf("Lubang ini sudah terisi! Silahkan isi lubang lain!\n");
 			scanf("%d", &tempat); 
 			if(board1[tempat]==0) break;}
 		}
 		board1[tempat] = 1;
 	}
+	system("clear");
 	printf("\nSilahkan pemain 2 tebak empat ranjau : ");
 	for(int i=0; i<4; i++)
 	{
@@ -31,8 +32,10 @@ void* thr1(void *arg) //giliran pemain1
 		if(board1[tempat]==1) { poin2+=1; board1[tempat]=-1;}
 		else poin1+=1;
 	}
+	system("clear");
 	
 	printf("\nPoin1: %d, Poin2: %d\n", poin1, poin2);
+	
 	status = 1;
 }
 
@@ -45,15 +48,16 @@ void* thr2(void *arg) //giliran pemain2
 	{
 		scanf("%d", &tempat);
 		if(tempat==-1) break;
-		else if(board2[tempat]==1)
+		else if(board2[tempat]==1 || board2[tempat]==-1)
 		{
 			while(1) {
-			printf("Lubang ini sudah terisi! Silahkan isi lubang lain!");
+			printf("Lubang ini sudah terisi! Silahkan isi lubang lain!\n");
 			scanf("%d", &tempat); 
 			if(board2[tempat]==0) break;}
 		}
 		board2[tempat] = 1;
 	}
+	system("clear");
 	printf("\nSilahkan pemain 1 tebak empat ranjau : ");
 	for(int i=0; i<4; i++)
 	{
@@ -61,7 +65,7 @@ void* thr2(void *arg) //giliran pemain2
 		if(board2[tempat]==1) { poin1+=1; board2[tempat]=-1;}
 		else poin2+=1;
 	}
-	
+	system("clear");
 	printf("\nPoin1: %d, Poin2: %d\n", poin1, poin2);
 	status = 0;
 	
@@ -69,6 +73,11 @@ void* thr2(void *arg) //giliran pemain2
 
 int main()
 {
+	char start;
+	printf("\nIngin memainkan permainan MINE? Y/N? ");
+	scanf("%c", &start);
+	if(start=='Y') {
+	system("clear");
 	memset(board1, 0, sizeof(board1));
 	memset(board2, 0, sizeof(board2));
 	
@@ -84,5 +93,13 @@ int main()
 	pthread_join(tid2, NULL);}
 	}
 	
+	system("clear");
+	printf("PERMAINAN SELESAI!\n");
+	if(poin1==10) printf("Pemain 1 memenangkan permainan! YAY!\n");
+	else if(poin2==10) printf("Pemain 2 memenangkan permainan! YEAH!\n");
+	printf("Terima kasih sudah bermain :)\n");
+	
+	}
+	else if(start=='N') printf("\nYaaah, oke deh!\n");
 	return 0;
 }
