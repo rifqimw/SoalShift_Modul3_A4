@@ -7,12 +7,16 @@ int stat_k=100, stat_l=100, status=0;
 
 void* l_kurang(void *arg)
 {	
+	while(status==0) {
+	if(stat_k <= 0 || stat_l <= 0 || stat_k > 100 || stat_l > 100) break;
 	sleep(10);	
 	stat_l-=15; }
 }
 
 void* k_kurang(void *arg)
 {	
+	while(status==0) {
+	if(stat_k <= 0 || stat_l <= 0 || stat_k > 100 || stat_l > 100) break;
 	sleep(20);
 	stat_k-=10; }
 }
