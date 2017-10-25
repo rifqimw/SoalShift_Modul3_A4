@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <string.h>
+#include <unistd.h>
 
-int board1[16], board2[16], temp1[16], temp2[16];
+int board1[16], board2[16];
 int status = 0; 
 int poin1 = 0, poin2 = 0;
 int b_stat1=0, b_stat2=0;
@@ -11,6 +12,8 @@ int b_stat1=0, b_stat2=0;
 void* thr1(void *arg) //giliran pemain1
 {
 	int tempat;
+	
+	printf("Cara bermain : isi setiap prompt dengan format [nomor_lubang]!\n");
 	printf("Silahkan pemain 1 pasang ranjau, masukkan -1 jika ingin selesai : ");
 	for(int i=0; i<4; i++)
 	{
@@ -35,9 +38,10 @@ void* thr1(void *arg) //giliran pemain1
 		else poin1+=1;
 	}
 	system("clear");
-	
-	printf("\nPoin1: %d, Poin2: %d\n", poin1, poin2);
-	
+	printf("CHECKPOINT : \n");	
+	printf("Point pemain 1 : %d\nPoint pemain 2 : %d\n", poin1, poin2);
+	sleep(5);
+	system("clear");
 	status = 1;
 }
 
@@ -45,6 +49,8 @@ void* thr2(void *arg) //giliran pemain2
 {
 	while(status==0) {}
 	int tempat;
+
+	printf("Cara bermain : isi setiap prompt dengan format [nomor_lubang]!\n");
 	printf("Silahkan pemain 2 pasang ranjau, masukkan -1 jika ingin selesai : ");
 	for(int i=0; i<4; i++)
 	{
@@ -69,7 +75,10 @@ void* thr2(void *arg) //giliran pemain2
 		else poin2+=1;
 	}
 	system("clear");
-	printf("\nPoin1: %d, Poin2: %d\n", poin1, poin2);
+	printf("CHECKPOINT : \n");	
+	printf("Point pemain 1 : %d\nPoint pemain 2 : %d\n", poin1, poin2);
+	sleep(5);
+	system("clear");
 	status = 0;
 	
 }
@@ -81,8 +90,6 @@ int main()
 	scanf("%c", &start);
 	if(start=='Y') {
 	system("clear");
-	
-	printf("Cara bermain : isi setiap prompt dengan format [nomor_lubang]!");
 	
 	memset(board1, 0, sizeof(board1));
 	memset(board2, 0, sizeof(board2));
@@ -96,8 +103,11 @@ int main()
 	if(poin1==10 || poin2==10 || (b_stat1==16 && b_stat2==16) || poin1>10 || poin2>10) break;
 	else {	
 	pthread_join(tid1, NULL);
+	
+	if(poin1==10 || poin2==10 || (b_stat1==16 && b_stat2==16) || poin1>10 || poin2>10) break;
+	else {
 	pthread_join(tid2, NULL);}
-	}
+	} }
 	
 	system("clear");
 	printf("PERMAINAN SELESAI!\n");
