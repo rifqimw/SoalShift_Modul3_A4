@@ -9,6 +9,17 @@
 int main()
 {
 	char nama[15]; int tambah, menu, j_MP4A1=0, j_PM2_V1=0, j_SPR_3=0, j_SS2_V5=0, j_SPG1_V3=0, j_MINE=0;
+
+	key_t key = 1234;
+	int *value1, *value2, *value3, *value4, *value5, *value6;
+	int shmid = shmget(key, sizeof(int), IPC_CREAT | 0_666);
+	value1 = shmat(shmid, NULL, 0);	
+	value2 = shmat(shmid, NULL, 0);	
+	value3 = shmat(shmid, NULL, 0);	
+	value4 = shmat(shmid, NULL, 0);	
+	value5 = shmat(shmid, NULL, 0);	
+	value6 = shmat(shmid, NULL, 0);	
+	
 	printf("=== PENJUAL SENJATA ===\n");
 	while(1) {
 	printf("Silahkan pilih menu yang ingin diakses dengan input nomor urut!\n");
@@ -35,7 +46,16 @@ int main()
 		else if(strcmp(nama,"SPG1_V3")==0) j_SPG1_V3 += tambah;	
 		else if(strcmp(nama,"MINE")==0) j_MINE += tambah;		
 		
-	} }
-	
+	} 
+		*value1 = j_MP4A1;
+		*value2 = j_PM2_V1;
+		*value3 = j_SPR_3;
+		*value4 = j_SS2_V5;
+		*value5 = j_SPG1_V3;
+		*value6 = MINE;
+	}
+
+	shmdt(value1, value2, value3, value4, value5, value6);
+	shmctl(shmid, IPC_RMID, NULL);	
 	return 0;
 }
