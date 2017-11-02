@@ -8,31 +8,25 @@
 
 int main()
 {
-	char nama[15]; int beli, menu, j_MP4A1=0, j_PM2_V1=0, j_SPR_3=0, j_SS2_V5=0, j_SPG1_V3=0, j_MINE=0;
+	char nama[15]; int beli, menu;
 
 	key_t key = 1234;
-	int *value1, *value2, *value3, *value4, *value5, *value6;
 	int shmid = shmget(key, sizeof(int), IPC_CREAT | 0666);
-	value1 = shmat(shmid, NULL, 0);	
-	value2 = shmat(shmid, NULL, 0);	
-	value3 = shmat(shmid, NULL, 0);	
-	value4 = shmat(shmid, NULL, 0);	
-	value5 = shmat(shmid, NULL, 0);	
-	value6 = shmat(shmid, NULL, 0);	
+	int *value = shmat(shmid, NULL, 0);
 
 	printf("=== PEMBELI SENJATA ===\n");
 	while(1) {
 	printf("Silahkan pilih menu yang ingin diakses dengan input nomor urut!\n");
-	printf("1.Lihat stock senjata\n2.Beli senjata\n");
+	printf("1.Lihat stock senjata\n2.Beli senjata\n3.Exit\n");
 	scanf("%d", &menu);
 	if(menu==1)
 	{
-		printf("Stock MP4A1 : %d\n", j_MP4A1);
-		printf("Stock PM2-V1 : %d\n", j_PM2_V1);
-		printf("Stock SPR-3 : %d\n", j_SPR_3);
-		printf("Stock SS2-V5 : %d\n", j_SS2_V5);
-		printf("Stock SPG1-V3 : %d\n", j_SPG1_V3);
-		printf("Stock MINE : %d\n", j_MINE);
+		printf("Stock MP4A1 : %d\n", value[0]);
+		printf("Stock PM2-V1 : %d\n", value[1]);
+		printf("Stock SPR-3 : %d\n", value[2]);
+		printf("Stock SS2-V5 : %d\n", value[3]);
+		printf("Stock SPG1-V3 : %d\n", value[4]);
+		printf("Stock MINE : %d\n", value[5]);
 	}
 	else if(menu==2)
 	{
@@ -40,27 +34,18 @@ int main()
 		scanf("%s", &nama);
 		scanf("%d", &beli);		
 
-		if(strcmp(nama,"MP4A1")==0 && j_MP4A1>beli) j_MP4A1 -= beli;	
-		else if(strcmp(nama,"PM2_V1")==0 && j_PM2_V1>beli) j_PM2_V1 -= beli;	
-		else if(strcmp(nama,"SPR_3")==0 && j_SPR_3>beli) j_SPR_3 -= beli;	
-		else if(strcmp(nama,"SS2_V5")==0 && j_SS2_V5>beli) j_SS2_V5 -= beli;	
-		else if(strcmp(nama,"SPG1_V3")==0 && j_SPG1_V3>beli) j_SPG1_V3 -= beli;	
-		else if(strcmp(nama,"MINE")==0 && j_MINE>beli) j_MINE -= beli;		
+		if(strcmp(nama,"MP4A1")==0 && value[0]>beli) value[0] -= beli;	
+		else if(strcmp(nama,"PM2-V1")==0 && value[1]>beli) value[1] -= beli;	
+		else if(strcmp(nama,"SPR-3")==0 && value[2]>beli) value[2] -= beli;	
+		else if(strcmp(nama,"SS2-V5")==0 && value[3]>beli) value[3] -= beli;	
+		else if(strcmp(nama,"SPG1-V3")==0 && value[4]>beli) value[4] -= beli;	
+		else if(strcmp(nama,"MINE")==0 && value[5]>beli) value[5] -= beli;		
 		
-	} 	*value1 = j_MP4A1;
-		*value2 = j_PM2_V1;
-		*value3 = j_SPR_3;
-		*value4 = j_SS2_V5;
-		*value5 = j_SPG1_V3;
-		*value6 = j_MINE;
 	}
-
-	shmdt(value1);
-	shmdt(value2);
-	shmdt(value3);
-	shmdt(value4);
-	shmdt(value5);
-	shmdt(value6);
+	else if(menu==3) break;
+	
+	}
+	shmdt(value);	
 	shmctl(shmid, IPC_RMID, NULL);	
 	
 	return 0;
