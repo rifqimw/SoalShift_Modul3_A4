@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
 {
     pthread_t tid[argc];
 	int i=0;
-	char input[1000];
-	while(scanf("%c",&input[i])!=EOF)
+	char input[50][1000];
+	while(scanf("%s",&input[i])!=EOF)
 	{
 		pthread_create(&(tid[i]), NULL, &open,(void*) input[i]); 
 		i++;
